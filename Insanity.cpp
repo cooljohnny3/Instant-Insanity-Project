@@ -1,4 +1,5 @@
 #include "Insanity.h"
+#include "Checker.h"
 #include <iostream>
 #include <algorithm>
 #include <fstream>
@@ -58,20 +59,13 @@ std::vector<int> Insanity::obstacle(){
 }
 
 /*
-Checks a vector containing cube numbers to see if it is an obstacle
+Checks a vector containing cube numbers to see if they are an obstacle
 Returns true if not an obstacle
-
-go through and try to make 2 threads systematically
-if can make 2 threads then not obstacle
-else return set
 */
 bool Insanity::checkSet(std::vector<int> &set){
-    //cubes
-    for(int i = 0; i < set.size; i++){
-        //threads
-        for(int j = 0; j < 3; j++){
-            
-        }
-    }
+    Checker c = Checker(cubes, set);
+
+    if(c.makeThreads())
+        return true;
     return false;
 }

@@ -1,3 +1,5 @@
+#ifndef THREAD_H
+#define THREAD_H
 class Thread{
 private:
         int side1;
@@ -9,3 +11,4 @@ public:
         int getSide1();
         int getSide2();
 };
+#endif

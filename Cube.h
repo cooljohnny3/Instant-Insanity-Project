@@ -1,5 +1,8 @@
 #include "Thread.h"
 
+#ifndef CUBE_H
+#define CUBE_H
+
 class Cube{
 private:
     Thread thread1;
@@ -11,3 +14,4 @@ public:
     Cube(Thread, Thread, Thread);
     Thread getThread(int);    
 };
+#endif

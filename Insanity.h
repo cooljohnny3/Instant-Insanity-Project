@@ -4,7 +4,7 @@
 
 class Insanity{
 private:
-    Cube cubes[5];
+    Cube cubes[32];
 
 public:
     Insanity();

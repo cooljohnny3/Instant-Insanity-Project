@@ -1,5 +1,5 @@
-Project: main.o Insanity.o Cube.o Thread.o
-	g++ -o Project main.o Insanity.o Cube.o Thread.o
+Project: main.o Insanity.o Cube.o Thread.o Checker.o
+	g++ -o Project main.o Insanity.o Cube.o Thread.o Checker.o
 	make clean
 	
 main.o: main.cpp Insanity.h
@@ -13,6 +13,9 @@ cube.o: Cube.cpp Cube.h
 
 thread.o: Thread.cpp Thread.h
 	g++ -c Thread.cpp
+
+checker.o: Checker.cpp Checker.h
+	g++ -c Checker.cpp
 
 clean:
 	rm *.o 
