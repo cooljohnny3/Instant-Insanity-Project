@@ -1,7 +1,7 @@
-#include "Thread.h"
-
 #ifndef CUBE_H
 #define CUBE_H
+
+#include "Thread.h"
 
 class Cube{
 private:

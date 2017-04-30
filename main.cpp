@@ -4,6 +4,7 @@
 int main(){
     Insanity game = Insanity("Threads.txt");
     //game.printCubes();
+    
     std::vector<int> obstacle = game.obstacle();
 
     for(int i = 0; i < obstacle.size(); i++){

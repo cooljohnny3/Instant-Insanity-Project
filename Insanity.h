@@ -1,10 +1,14 @@
+#ifndef INSANITY_H
+#define INSANITY_H
+
 #include "Cube.h"
 #include <string>
 #include <vector>
 
 class Insanity{
 private:
-    Cube cubes[32];
+    static const int size = 5;
+    Cube cubes[size];
 
 public:
     Insanity();
@@ -13,3 +17,4 @@ public:
     std::vector<int> obstacle();
     bool checkSet(std::vector<int>&);
 };
+#endif
