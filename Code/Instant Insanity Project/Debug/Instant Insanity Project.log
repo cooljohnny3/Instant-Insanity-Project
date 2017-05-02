@@ -1,8 +1,8 @@
 ﻿  Insanity.cpp
-  Checker.cpp
-c:\code\instant-insanity-project\code\instant insanity project\checker.cpp(24): warning C4018: '<': signed/unsigned mismatch
-c:\code\instant-insanity-project\code\instant insanity project\checker.cpp(37): warning C4018: '>': signed/unsigned mismatch
-c:\code\instant-insanity-project\code\instant insanity project\checker.cpp(55): warning C4018: '>': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  main.cpp
+c:\code\instant-insanity-project\code\instant insanity project\main.cpp(10): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.exe
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.pdb (Partial PDB)

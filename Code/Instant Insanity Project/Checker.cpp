@@ -32,30 +32,37 @@ bool Checker::makeThreads(){
 }
 
 bool Checker::makeThread1(int side, int cube){
-    std::cout << "1 " << side << " " << cube << std::endl;
-
     if(cube > set.size()){ //finished thread 1
         std::cout << "Thread 1 found!" << std::endl;
 		return makeThread2(1, 1) || makeThread2(2, 1) || makeThread2(3, 1);
     }
+
+	std::cout << "1 " << cubes[set[cube - 1] - 1].getThread(side).getSide1() << "-" << cubes[set[cube - 1] - 1].getThread(side).getSide2() << std::endl;
 
     if(!checkThread1(side, cube)){ //check counts
         std::cout << "Count too high" << std::endl;
         return false;
     }
 
-    used[side][cube] = true; //mark side as used
-    return makeThread1(1, cube+1) || makeThread1(2, cube+1) || makeThread1(3, cube+1);
+    used[side-1][cube] = true; //mark side as used
+
+	if (makeThread1(1, cube + 1) || makeThread1(2, cube + 1) || makeThread1(3, cube + 1))
+		return true;
+
+	used[side - 1][cube] = false; //mark side as unused
+	undoThread1(side, cube);
+	return false;
 }
 
 bool Checker::makeThread2(int side, int cube){
-    std::cout << "2 " << side << " " << cube << std::endl;
     Thread temp = cubes[cube].getThread(side);
 
 	if (cube > set.size()) { //finished thread
 		std::cout << "Thread 2 found!" << std::endl;
 		return true;
 	}
+
+	std::cout << "2 " << cubes[set[cube - 1] - 1].getThread(side).getSide1() << "-" << cubes[set[cube - 1] - 1].getThread(side).getSide2() << std::endl;
 
 	if (used[side-1][cube]) { //if already used skip
 		std::cout << "Already used" << std::endl;
@@ -65,8 +72,13 @@ bool Checker::makeThread2(int side, int cube){
     if(!checkThread2(side, cube)){ //check counts
         std::cout << "Count too high" << std::endl;
         return false;
-    }    
-    return makeThread2(1, cube+1) || makeThread2(2, cube+1) || makeThread2(3, cube+1);
+    }
+
+	if (makeThread2(1, cube + 1) || makeThread2(2, cube + 1) || makeThread2(3, cube + 1))
+		return true;
+
+	undoThread2(side, cube);
+	return false;
 }
 
 /*
@@ -75,44 +87,44 @@ if false then return false
 else count for the respecitve number is increased and return true
 */
 bool Checker::checkThread1(int s, int c){
-    Cube cube = cubes[c-1];
-    Thread side = cube.getThread(s);
+    int cubeNum = set[c-1];
+    Thread side = cubes[cubeNum-1].getThread(s);
 
     if(count1[side.getSide1()-1] + 1 > 2 || count1[side.getSide2()-1] + 1 > 2)
         return false;
     else{
-        count1[side.getSide1()]++;
-        count1[side.getSide2()]++;
+        count1[side.getSide1()-1]++;
+        count1[side.getSide2()-1]++;
         return true;
     }
 }
 
 bool Checker::checkThread2(int s, int c){
-    Cube cube = cubes[c-1];
-    Thread side = cube.getThread(s);
+    int cubeNum = set[c-1];
+    Thread side = cubes[cubeNum-1].getThread(s);
 
     if(count2[side.getSide1()-1] + 1 > 2 || count2[side.getSide2()-1] + 1 > 2)
         return false;
 
     else{
-        count2[side.getSide1()]++;
-        count2[side.getSide2()]++;
+        count2[side.getSide1()-1]++;
+        count2[side.getSide2()-1]++;
         return true;
     }
 }
 
 void Checker::undoThread1(int s, int c){
-    Cube cube = cubes[c];
-    Thread side = cube.getThread(s);
+	int cubeNum = set[c - 1];
+	Thread side = cubes[cubeNum - 1].getThread(s);
 
-    count1[side.getSide1()]++;
-    count1[side.getSide2()]++;
+	count1[side.getSide1() - 1]--;
+	count1[side.getSide2() - 1]--;
 }
 
 void Checker::undoThread2(int s, int c){
-    Cube cube = cubes[c];
-    Thread side = cube.getThread(s);
+	int cubeNum = set[c - 1];
+	Thread side = cubes[cubeNum - 1].getThread(s);
 
-    count2[side.getSide1()]++;
-    count2[side.getSide2()]++;
+	count2[side.getSide1() - 1]--;
+	count2[side.getSide2() - 1]--;
 }

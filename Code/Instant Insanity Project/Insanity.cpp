@@ -61,8 +61,9 @@ std::vector<int> Insanity::obstacle(){
 				std::cout << "Done!" << std::endl;
 				return listy;
 			}
-			checked.insert(listy); // set worked so add to checked
+			//checked.insert(listy); // set worked so add to checked
            
+			std::cout << "\n";
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
     }
@@ -75,9 +76,12 @@ Checks a vector containing cube numbers to see if they are an obstacle
 Returns true if not an obstacle
 */
 bool Insanity::checkSet(std::vector<int> &set){
-	/*if (checked.insert(set).second == false){ // if already in set
+	/*
+	if (checked.insert(set).second == false){ // if already in set
+		std::cout << "Already checked!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 		if(checkNewCube()) // check if able to add
 			return true;
+		return false;
 	}*/
 
     Checker c = Checker(cubes, set);	

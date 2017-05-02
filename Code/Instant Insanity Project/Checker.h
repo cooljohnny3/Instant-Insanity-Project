@@ -22,7 +22,7 @@ public:
     bool makeThread2(int, int);
     bool checkThread1(int, int);
     bool checkThread2(int, int);
-    void undoThread1(int, int);
-    void undoThread2(int, int);
+	void undoThread1(int, int);
+	void undoThread2(int, int);
 };
 #endif

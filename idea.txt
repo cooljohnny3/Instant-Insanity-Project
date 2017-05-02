@@ -1,0 +1,9 @@
+dont need to check combinations that have already been checked
+make list of combinations that have been done
+if combination worked how to use?
+
+save the counts for each thread
+try and see if adding a side from the new cube kills it
+if not try for second threqdaw too
+if can add then combo works
+else brute force
