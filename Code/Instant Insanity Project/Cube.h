@@ -5,6 +5,7 @@
 
 class Cube{
 private:
+	float average;
     Thread thread1;
     Thread thread2;
     Thread thread3;
@@ -12,6 +13,8 @@ private:
 public:
     Cube();
     Cube(Thread, Thread, Thread);
-    Thread getThread(int);    
+    Thread getThread(int);
+	float calcAverage();
+	bool operator<(const Cube &cube2);
 };
 #endif

@@ -21,7 +21,7 @@ bool Checker::makeThread1(int side, int cube){
 		return makeThread2(1, 0) || makeThread2(2, 0) || makeThread2(3, 0);
     }
 
-	std::cout << "1 " << set[cube].getThread(side).getSide1() << " " << set[cube].getThread(side).getSide2() << std::endl;
+	std::cout << "1 " << set[cube].getThread(side).getSide1() << "-" << set[cube].getThread(side).getSide2() << std::endl;
 
     if(!checkThread1(side, cube)){ //check counts
         std::cout << "Count too high" << std::endl;
@@ -44,7 +44,7 @@ bool Checker::makeThread2(int side, int cube){
 		return true;
 	}
 
-	std::cout << "2 " << set[cube].getThread(side).getSide1() << " " << set[cube].getThread(side).getSide2() << std::endl;
+	std::cout << "2 " << set[cube].getThread(side).getSide1() << "-" << set[cube].getThread(side).getSide2() << std::endl;
 
 	if (used[side-1][cube]) { //if already used skip
 		std::cout << "Already used" << std::endl;

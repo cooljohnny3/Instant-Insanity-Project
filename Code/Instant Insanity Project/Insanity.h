@@ -4,13 +4,10 @@
 #include "Cube.h"
 #include <string>
 #include <vector>
-#include <set>
 
 class Insanity{
 private:
-    static const int size = 3;
-    Cube cubes[size];
-	std::set<std::vector<int>> checked;
+    std::vector<Cube> cubes;
 
 public:
     Insanity();

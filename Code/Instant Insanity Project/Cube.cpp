@@ -5,12 +5,14 @@ Cube::Cube(){
     thread1 = Thread();
     thread2 = Thread();
     thread3 = Thread();
+	average = 0;
 }
 
 Cube::Cube(Thread pair1, Thread pair2, Thread pair3){
    thread1 = pair1;
    thread2 = pair2;
    thread3 = pair3; 
+   average = calcAverage();
 }
 
 
@@ -26,3 +28,15 @@ Thread Cube::getThread(int num){
             return Thread(0, 0);
     }
 } 
+
+float Cube::calcAverage() {
+	int t1 = thread1.getSide1() + thread1.getSide2();
+	int t2 = thread2.getSide1() + thread2.getSide2();
+	int t3 = thread3.getSide1() + thread3.getSide2();
+
+	return (t1 + t2 + t3) / 3.0;
+}
+
+bool Cube::operator<(const Cube &cube2) {
+	return average < cube2.average;
+}

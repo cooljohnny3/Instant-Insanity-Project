@@ -8,6 +8,8 @@
 Insanity::Insanity() {}
 
 Insanity::Insanity(std::string name){
+	cubes = std::vector<Cube>(32); // initialize cubes vector
+
     std::fstream f;
     std::string line;
     int  values[6];
@@ -15,7 +17,7 @@ Insanity::Insanity(std::string name){
     std::cout << "Reading cubes." << std::endl;
     f.open(name, std::ios::in);
 
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < cubes.size(); i++){
         std::getline(f, line);
         std::istringstream iss(line);
         for(int j = 0; j < 6; j++){
@@ -25,12 +27,16 @@ Insanity::Insanity(std::string name){
     }
     f.close();
    std::cout << "Finished reading cubes." << std::endl; 
+
+   std::cout << "Sorting cubes by averages..." << std::endl;
+   std::sort(cubes.begin(), cubes.end()); // Sort cubes by average
+   std::cout << "Done sorting" << std::endl;
 }
 
 void Insanity::printCubes(){
-   for(int i = 0; i < size; i++){
+   for(int c = 0; c < cubes.size(); c++){
         for(int t = 1; t <= 3; t++)
-            std::cout << cubes[i].getThread(t).getSide1() << "-" << cubes[i].getThread(t).getSide2() << " ";
+            std::cout << cubes[c].getThread(t).getSide1() << "-" << cubes[c].getThread(t).getSide2() << " ";
         std::cout << std::endl;
     }
 }
@@ -39,7 +45,7 @@ void Insanity::printCubes(){
 Finds the smallest obstacle if it exists by checking all combinations of cubes
 */
 std::vector<Cube> Insanity::obstacle(){
-    int n = size;
+    int n = 2; //number to go to
     std::vector<Cube> listy;
 
     std::cout << "Finding obstacle..." << std::endl;
