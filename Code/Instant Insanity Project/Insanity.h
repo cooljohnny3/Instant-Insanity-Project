@@ -8,7 +8,7 @@
 
 class Insanity{
 private:
-    static const int size = 32;
+    static const int size = 3;
     Cube cubes[size];
 	std::set<std::vector<int>> checked;
 
@@ -16,7 +16,7 @@ public:
     Insanity();
     Insanity(std::string);
     void printCubes();
-    std::vector<int> obstacle();
-    bool checkSet(std::vector<int>&);
+    std::vector<Cube> obstacle();
+    bool checkSet(std::vector<Cube>);
 };
 #endif

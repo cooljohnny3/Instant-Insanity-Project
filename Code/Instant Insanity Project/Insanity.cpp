@@ -38,9 +38,9 @@ void Insanity::printCubes(){
 /*
 Finds the smallest obstacle if it exists by checking all combinations of cubes
 */
-std::vector<int> Insanity::obstacle(){
+std::vector<Cube> Insanity::obstacle(){
     int n = size;
-    std::vector<int> listy;
+    std::vector<Cube> listy;
 
     std::cout << "Finding obstacle..." << std::endl;
 
@@ -51,23 +51,22 @@ std::vector<int> Insanity::obstacle(){
             for (int i = 0; i < n; ++i) {
                 if (v[i]) {
 					std::cout << i+1 << " ";
-                    listy.push_back(i+1);
+                    listy.push_back(cubes[i]);
                 }
             }
-			std::cout << "\n";
+			std::cout << std::endl;
 
 			
 			if (!checkSet(listy)) {
-				std::cout << "Done!" << std::endl;
+				std::cout << "Obstacle found!" << std::endl;
 				return listy;
 			}
-			//checked.insert(listy); // set worked so add to checked
            
-			std::cout << "\n";
+			std::cout << std::endl;
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
     }
-    std::cout << "Done!" << std::endl;
+    std::cout << "Obstacle not found." << std::endl;
     return listy;
 }
 
@@ -75,16 +74,8 @@ std::vector<int> Insanity::obstacle(){
 Checks a vector containing cube numbers to see if they are an obstacle
 Returns true if not an obstacle
 */
-bool Insanity::checkSet(std::vector<int> &set){
-	/*
-	if (checked.insert(set).second == false){ // if already in set
-		std::cout << "Already checked!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-		if(checkNewCube()) // check if able to add
-			return true;
-		return false;
-	}*/
-
-    Checker c = Checker(cubes, set);	
+bool Insanity::checkSet(std::vector<Cube> set){
+    Checker c = Checker(set);
 
     if(c.makeThreads())
         return true;

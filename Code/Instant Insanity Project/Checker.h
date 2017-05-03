@@ -6,17 +6,14 @@
 
 class Checker{
 private:
-    std::vector<int> count1; //count or first thread
+    std::vector<int> count1; //count for first thread
     std::vector<int> count2; //count for second thread
-    std::vector<int> set; //list of cube numbers
+    std::vector<Cube> set; //list of cubes
 	std::vector<std::vector<bool>> used; //bools of threads used
-    Cube *cubes; //reference to cubes
 
 public:
     Checker();
-    Checker(Cube*, std::vector<int>&);
-    void printCubes();
-    void printSet();
+    Checker(std::vector<Cube>);
     bool makeThreads();
     bool makeThread1(int, int);
     bool makeThread2(int, int);
