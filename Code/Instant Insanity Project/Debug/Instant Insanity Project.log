@@ -1,4 +1,8 @@
-﻿  Cube.cpp
-c:\code\instant-insanity-project\code\instant insanity project\cube.cpp(37): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+﻿  LibraryChecker.cpp
+c:\code\instant-insanity-project\code\instant insanity project\librarychecker.cpp(14): warning C4018: '<': signed/unsigned mismatch
+c:\code\instant-insanity-project\code\instant insanity project\librarychecker.cpp(15): warning C4018: '<': signed/unsigned mismatch
+c:\code\instant-insanity-project\code\instant insanity project\librarychecker.cpp(63): warning C4018: '<': signed/unsigned mismatch
+c:\code\instant-insanity-project\code\instant insanity project\librarychecker.cpp(64): warning C4018: '<': signed/unsigned mismatch
+c:\code\instant-insanity-project\code\instant insanity project\librarychecker.cpp(67): warning C4018: '<': signed/unsigned mismatch
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.exe
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.pdb (Partial PDB)

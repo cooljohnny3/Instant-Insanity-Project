@@ -3,7 +3,6 @@
 
 int main(){
     Insanity game = Insanity("Threads.txt");
-    //game.printCubes();
     
     std::vector<Cube> obstacle = game.obstacle();
 

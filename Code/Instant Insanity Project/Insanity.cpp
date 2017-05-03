@@ -34,8 +34,6 @@ Insanity::Insanity(std::string name){
    std::cout << "Sorting cubes by averages..." << std::endl;
    std::sort(cubes.begin(), cubes.end()); // Sort cubes by average
    std::cout << "Done sorting" << std::endl;
-
-   printCubes();
 }
 
 void Insanity::printCubes(){
@@ -51,7 +49,7 @@ void Insanity::printCubes(){
 Finds the smallest obstacle if it exists by checking all combinations of cubes
 */
 std::vector<Cube> Insanity::obstacle(){
-    int n = 32; //number to go to
+    int n = 10; //number to go to
     std::vector<Cube> listy;
 
     std::cout << "Finding obstacle..." << std::endl;
@@ -63,6 +61,10 @@ std::vector<Cube> Insanity::obstacle(){
         do {
             for (int i = 0; i < n; ++i) {
                 if (v[i]) {
+					std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
+					std::cout << cubes[i].getThread(2).getSide1() << "-" << cubes[i].getThread(2).getSide2() << " ";
+					std::cout << cubes[i].getThread(3).getSide1() << "-" << cubes[i].getThread(3).getSide2() << " ";
+					std::cout << std::endl;
                     listy.push_back(cubes[i]);
                 }
             }
@@ -81,7 +83,6 @@ std::vector<Cube> Insanity::obstacle(){
 				}
 			}
            
-			std::cout << std::endl;
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
     }
