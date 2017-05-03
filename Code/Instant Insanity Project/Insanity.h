@@ -1,5 +1,4 @@
-#ifndef INSANITY_H
-#define INSANITY_H
+#pragma once
 
 #include "Cube.h"
 #include <string>
@@ -15,5 +14,5 @@ public:
     void printCubes();
     std::vector<Cube> obstacle();
     bool checkSet(std::vector<Cube>);
+	bool libraryCheckSet(std::vector<Cube>);
 };
-#endif

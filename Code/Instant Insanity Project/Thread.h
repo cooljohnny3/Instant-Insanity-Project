@@ -1,15 +1,15 @@
-#ifndef THREAD_H
-#define THREAD_H
+#pragma once
 
 class Thread{
 private:
-        int side1;
-        int side2;
+	int id;
+    int side1;
+    int side2;
 
 public:
-        Thread();
-        Thread(int, int);
-        int getSide1();
-        int getSide2();
+    Thread();
+    Thread(int, int, int);
+    int getSide1();
+    int getSide2();
+	bool operator==(Thread&);
 };
-#endif

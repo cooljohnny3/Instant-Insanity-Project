@@ -25,7 +25,7 @@ Thread Cube::getThread(int num){
         case 3:
             return thread3;
         default:
-            return Thread(0, 0);
+            return Thread();
     }
 } 
 

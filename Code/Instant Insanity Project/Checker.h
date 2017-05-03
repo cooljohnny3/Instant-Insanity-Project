@@ -1,6 +1,4 @@
-#ifndef CHECKER_H
-#define CHECKER_H
-
+#pragma once
 #include "Cube.h"
 #include <vector>
 
@@ -22,4 +20,3 @@ public:
 	void undoThread1(int, int);
 	void undoThread2(int, int);
 };
-#endif

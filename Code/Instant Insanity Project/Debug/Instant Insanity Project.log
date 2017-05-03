@@ -1,5 +1,4 @@
-﻿  Insanity.cpp
-c:\code\instant-insanity-project\code\instant insanity project\insanity.cpp(20): warning C4018: '<': signed/unsigned mismatch
-c:\code\instant-insanity-project\code\instant insanity project\insanity.cpp(37): warning C4018: '<': signed/unsigned mismatch
+﻿  Cube.cpp
+c:\code\instant-insanity-project\code\instant insanity project\cube.cpp(37): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.exe
   Instant Insanity Project.vcxproj -> C:\Code\Instant-Insanity-Project\Code\Debug\Instant Insanity Project.pdb (Partial PDB)

@@ -22,12 +22,14 @@
     <ClInclude Include="Checker.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Insanity.h" />
+    <ClInclude Include="LibraryChecker.h" />
     <ClInclude Include="Thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Checker.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Insanity.cpp" />
+    <ClCompile Include="LibraryChecker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Thread.cpp" />
   </ItemGroup>
