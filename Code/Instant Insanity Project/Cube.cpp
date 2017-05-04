@@ -37,6 +37,10 @@ float Cube::calcAverage() {
 	return (t1 + t2 + t3) / 3.0;
 }
 
-bool Cube::operator<(const Cube &cube2) {
-	return average < cube2.average;
+bool Cube::operator<(const Cube &c2) const {
+	return average < c2.average;
+}
+
+bool Cube::operator==(const Cube &c2) const {
+	return thread1 == c2.thread1 && thread2 == c2.thread2 && thread3 == c2.thread3;
 }

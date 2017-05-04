@@ -17,4 +17,4 @@ int Thread::getSide1(){ return side1; }
 
 int Thread::getSide2(){ return side2; }
 
-bool Thread::operator==(Thread &t2){ return id == t2.id; }
+bool Thread::operator==(const Thread &t2) const { return id == t2.id; }

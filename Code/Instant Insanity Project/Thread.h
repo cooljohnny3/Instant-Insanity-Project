@@ -11,5 +11,5 @@ public:
     Thread(int, int, int);
     int getSide1();
     int getSide2();
-	bool operator==(Thread&);
+	bool operator==(const Thread& t2) const;
 };

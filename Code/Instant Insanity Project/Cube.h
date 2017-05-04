@@ -14,5 +14,6 @@ public:
     Cube(Thread, Thread, Thread);
     Thread getThread(int);
 	float calcAverage();
-	bool operator<(const Cube &cube2);
+	bool operator<(const Cube &c2) const;
+	bool operator==(const Cube &c2) const;
 };
