@@ -61,7 +61,7 @@ bool LibraryChecker::checkThreads(){
 	//printList();
 	std::cout << "Checking Threads" << std::endl;
 
-	if (threads.size() == pow(3, set.size()))
+	if (threads.size() == pow(3, set.size())) // made every possible thread
 		return true;
 
 	if (threads.size() == 0) // not able to make any threads
@@ -72,6 +72,12 @@ bool LibraryChecker::checkThreads(){
 			temp1 = (*threads[i])[j]; // Thread being checked
 
 			for (int k = i+1; k < threads.size(); k++) { // iterate through the other lists
+				if(std::find(threads[k]->begin(), threads[k]->end(), temp1) == threads[k]->end())
+					break;
+				std::cout << "Found unique threads" << std::endl;
+				return true;
+
+			/*
 				for (int l = 0; true; l++) { // itterate through 2nd list
 					if (l == threads[k]->size())
 						std::cout << "Found unique threads" << std::endl;
@@ -79,7 +85,7 @@ bool LibraryChecker::checkThreads(){
 					temp2 = (*threads[k])[l];
 					if (temp1 == temp2)
 						break;
-				}
+				}*/
 			}
 		}
 	}
