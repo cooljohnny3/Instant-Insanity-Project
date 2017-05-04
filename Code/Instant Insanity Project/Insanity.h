@@ -7,12 +7,14 @@
 class Insanity{
 private:
     std::vector<Cube> cubes;
+	const int SIZE = 32;
 
 public:
     Insanity();
     Insanity(std::string);
     void printCubes();
     std::vector<Cube> obstacle();
+	std::vector<Cube> finalPart(int);
     bool checkSet(std::vector<Cube>);
 	bool libraryCheckSet(std::vector<Cube>);
 };

@@ -49,46 +49,106 @@ void Insanity::printCubes(){
 Finds the smallest obstacle if it exists by checking all combinations of cubes
 */
 std::vector<Cube> Insanity::obstacle(){
-    int n = 10; //number to go to
+    int n = SIZE, r = SIZE, lo = 0, hi = SIZE;
     std::vector<Cube> listy;
+	std::vector<Cube> prevList;
 
-    std::cout << "Finding obstacle..." << std::endl;
+	std::cout << "Checking inital set..." << std::endl;
+
+	if (libraryCheckSet(cubes)) // if no obstacle with all then no obstacle at all
+		return listy;
+
+	std::cout << "Initial set OK.\nProceeding to rest..." << std::endl;
 
 	// loop generating and trying combinations
-    for(int r = 2; r <= n; r++){
+    while(r > lo){
+		r = (hi - lo) / 2; 
+
+		std::cout << r << std::endl;
+
+		// generates combos for n,r
 		std::vector<bool> v(n);
         std::fill(v.begin(), v.begin() + r, true);
         do {
             for (int i = 0; i < n; ++i) {
                 if (v[i]) {
-					std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
+					/*std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
 					std::cout << cubes[i].getThread(2).getSide1() << "-" << cubes[i].getThread(2).getSide2() << " ";
 					std::cout << cubes[i].getThread(3).getSide1() << "-" << cubes[i].getThread(3).getSide2() << " ";
-					std::cout << std::endl;
+					std::cout << std::endl;*/
                     listy.push_back(cubes[i]);
                 }
             }
 
-			if (r > 15) {
+			//std::cout << std::endl;
+
+			// use DFS for threads
+			if (r < 15) { 
 				if (!checkSet(listy)) {
-					std::cout << "Obstacle found!" << std::endl;
-					return listy;
+					prevList = listy;
+					break;
 				}
 			}
 
+			// use library for threads
 			else {
 				if (!libraryCheckSet(listy)) {
-					std::cout << "Obstacle found!" << std::endl;
-					return listy;
+					prevList = listy;
+					break;
 				}
 			}
-           
+
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
-    }
 
-    std::cout << "Obstacle not found." << std::endl;
-    return listy;
+		if (lo <= hi) // found correct r
+			return finalPart(r);
+
+		else if (prevList == listy) // last list had obstacle
+			lo = r + 1;
+
+		else // last list didn't have obstacle
+			hi = r - 1;
+    }
+}
+
+std::vector<Cube> Insanity::finalPart(int r) {
+	int n = SIZE;
+	std::vector<Cube> listy;
+
+	std::cout << n << "C" << r << std::endl;
+
+	// generates combos for n,r
+	std::vector<bool> v(n);
+	std::fill(v.begin(), v.begin() + r, true);
+
+	do {
+		for (int i = 0; i < n; ++i) {
+			if (v[i]) {
+				listy.push_back(cubes[i]);
+			}
+		}
+
+		//std::cout << std::endl;
+
+		// use DFS for threads
+		if (r < 15) {
+			if (!checkSet(listy)) {
+				std::cout << "Obstacle found!" << std::endl;
+				return listy;
+			}
+		}
+
+		// use library for threads
+		else {
+			if (!libraryCheckSet(listy)) {
+				std::cout << "Obstacle found!" << std::endl;
+				return listy;
+			}
+		}
+
+		listy.clear();
+	} while (std::prev_permutation(v.begin(), v.end()));
 }
 
 /*
