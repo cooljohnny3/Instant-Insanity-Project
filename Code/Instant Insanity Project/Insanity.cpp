@@ -55,14 +55,14 @@ std::vector<Cube> Insanity::obstacle(){
 
 	std::cout << "Checking inital set..." << std::endl;
 
-	if (libraryCheckSet(cubes)) // if no obstacle with all then no obstacle at all
-		return listy;
+	//if (libraryCheckSet(cubes)) // if no obstacle with all then no obstacle at all
+		//return listy;
 
 	std::cout << "Initial set OK.\nProceeding to rest..." << std::endl;
 
 	// loop generating and trying combinations
     while(r > lo){
-		r = (hi - lo) / 2; 
+		r = 16;//(hi - lo) / 2; 
 
 		std::cout << r << std::endl;
 

@@ -1,6 +1,5 @@
 #include "LibraryChecker.h"
 #include <iostream>
-#include <cmath>
 
 LibraryChecker::LibraryChecker(){}
 
@@ -10,10 +9,10 @@ LibraryChecker::LibraryChecker(std::vector<Cube> s){
 }
 
 void LibraryChecker::printList(){
-	std::cout << threads.size() << " number of threads." << std::endl;
+	std::cout << threads.size() << " threads made." << std::endl;
 	for (int i = 0; i < threads.size(); i++) {
-		for (int j = 0; j < threads[i]->size(); j++) {
-			std::cout << (*threads[i])[j].getSide1() << "-" << (*threads[i])[j].getSide2() << std::endl;
+		for (int j = 0; j < threads[i].size(); j++) {
+			std::cout << threads[i][j].getSide1() << "-" << threads[i][j].getSide2() << std::endl;
 		}
 		std::cout << std::endl;
 	}
@@ -32,22 +31,21 @@ void LibraryChecker::makeThreads(){
 }
 
 void LibraryChecker::makeHelper(std::vector<Thread> listy, int side, int cube){
-	if ((cube == set.size()-1) && checkThread(side, cube)) {
-		listy.push_back(set[cube].getThread(side)); // add last pair
-		threads.push_back(&listy);
-		undoThread(side, cube); // undo the double in the check
-		return;
-	}
+	if (checkThread(side, cube)) {
+		if (cube == set.size() - 1) {
+			listy.push_back((set[cube].getThread(side))); // add last pair
+			threads.push_back(listy);
+		}
 
-	if (checkThread(side, cube)){
-		listy.push_back(set[cube].getThread(side)); // add the working side pair to the thread being made
-		makeHelper(listy, 1, cube + 1);
-		undoThread(1, cube + 1); // undo the threads added with prev recursive call
-		makeHelper(listy, 2, cube + 1);
-		undoThread(2, cube + 1); // undo the threads added with prev recursive call
-		makeHelper(listy, 3, cube + 1);
-		undoThread(3, cube + 1); // undo the threads added with prev recursive call
-		return;
+		else {
+			listy.push_back((set[cube].getThread(side))); // add the working side pair to the thread being made
+			makeHelper(listy, 1, cube + 1);
+			undoThread(1, cube + 1); // undo the threads added with prev recursive call
+			makeHelper(listy, 2, cube + 1);
+			undoThread(2, cube + 1); // undo the threads added with prev recursive call
+			makeHelper(listy, 3, cube + 1);
+			undoThread(3, cube + 1); // undo the threads added with prev recursive call
+		}
 	}
 }
 
@@ -58,7 +56,7 @@ bool LibraryChecker::checkThreads(){
 	Thread temp1;
 	Thread temp2;
 
-	//printList();
+	printList();
 	std::cout << "Checking Threads" << std::endl;
 
 	if (threads.size() == pow(3, set.size())) // made every possible thread
@@ -68,11 +66,11 @@ bool LibraryChecker::checkThreads(){
 		return false;
 
 	for (int i = 0; i < threads.size() - 1; i++) { // iterate through thread lists
-		for (int j = 0; j < threads[i]->size(); j++) { // iterate through curent thread list
-			temp1 = (*threads[i])[j]; // Thread being checked
+		for (int j = 0; j < threads[i].size(); j++) { // iterate through curent thread list
+			temp1 = threads[i][j]; // Thread being checked
 
 			for (int k = i+1; k < threads.size(); k++) { // iterate through the other lists
-				if(std::find(threads[k]->begin(), threads[k]->end(), temp1) == threads[k]->end())
+				if(std::find(threads[k].begin(), threads[k].end(), temp1) == threads[k].end())
 					break;
 				std::cout << "Found unique threads" << std::endl;
 				return true;
