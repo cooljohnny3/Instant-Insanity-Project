@@ -34,6 +34,8 @@ Insanity::Insanity(std::string name){
    std::cout << "Sorting cubes by averages..." << std::endl;
    std::sort(cubes.begin(), cubes.end()); // Sort cubes by average
    std::cout << "Done sorting" << std::endl;
+
+   //printCubes();
 }
 
 void Insanity::printCubes(){
@@ -49,27 +51,32 @@ void Insanity::printCubes(){
 Finds the smallest obstacle if it exists by checking all combinations of cubes
 */
 std::vector<Cube> Insanity::obstacle(){
+	int count;
     int n = SIZE, r = SIZE, lo = 0, hi = SIZE;
     std::vector<Cube> listy;
 	std::vector<Cube> prevList;
 
 	std::cout << "Checking inital set..." << std::endl;
 
-	//if (libraryCheckSet(cubes)) // if no obstacle with all then no obstacle at all
+	//if (checkSet(cubes)) // if no obstacle with all then no obstacle at all
 		//return listy;
 
-	std::cout << "Initial set OK.\nProceeding to rest..." << std::endl;
+	std::cout << "Initial set has obstacle.\nProceeding to rest..." << std::endl;
 
 	// loop generating and trying combinations
     while(r > lo){
-		r = 16;//(hi - lo) / 2; 
+		r = 8;//(hi - lo) / 2; 
 
 		std::cout << r << std::endl;
 
 		// generates combos for n,r
+		count = 1;
 		std::vector<bool> v(n);
         std::fill(v.begin(), v.begin() + r, true);
         do {
+			if(count % 1000 == 0)
+				std::cout << count << std::endl;
+
             for (int i = 0; i < n; ++i) {
                 if (v[i]) {
 					/*std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
@@ -83,7 +90,7 @@ std::vector<Cube> Insanity::obstacle(){
 			//std::cout << std::endl;
 
 			// use DFS for threads
-			if (r < 15) { 
+			if (true) { 
 				if (!checkSet(listy)) {
 					prevList = listy;
 					break;
@@ -98,11 +105,14 @@ std::vector<Cube> Insanity::obstacle(){
 				}
 			}
 
+			count++;
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
 
-		if (lo <= hi) // found correct r
+		if (lo <= hi) { // found correct r
+			std::cout << "Found initial obstacle" << std::endl;
 			return finalPart(r);
+		}
 
 		else if (prevList == listy) // last list had obstacle
 			lo = r + 1;

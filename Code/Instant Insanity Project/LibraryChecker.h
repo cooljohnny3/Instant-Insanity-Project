@@ -7,6 +7,7 @@ class LibraryChecker {
 private:
 	std::vector<Cube> set; //list of cubes
 	std::vector<std::vector<Thread>> threads; //list of all threads
+	std::vector<int> count;
 
 public:
 	LibraryChecker();
