@@ -6,6 +6,7 @@
 Checker::Checker(){}
 
 Checker::Checker(std::vector<Cube> s){
+	path = false;
     set = s;
     count1 = std::vector<int>(32);
     count2 = std::vector<int>(32);
@@ -13,16 +14,22 @@ Checker::Checker(std::vector<Cube> s){
 }
 
 bool Checker::makeThreads(){
-    /*std::thread first(makeThread1(1, 0));
-    std::thread second(makeThread1(2, 0));
-    std::thread third(makeThread1(3, 0));
+	std::thread first(makeThread, 1);
+	std::thread second(makeThread, 2);
+	std::thread third(makeThread, 3);
 
     first.join();
     second.join();
     third.join();
 
-    return true;*/
-	return makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0);
+    return path;
+
+	//return makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0);
+}
+
+void Checker::makeThread(int num) {
+	if (makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0))
+		path = true;
 }
 
 bool Checker::makeThread1(int side, int cube){
