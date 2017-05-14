@@ -1,6 +1,7 @@
 #include "Checker.h"
 #include <iostream>
 #include <algorithm>
+#include <thread>
 
 Checker::Checker(){}
 
@@ -12,10 +13,21 @@ Checker::Checker(std::vector<Cube> s){
 }
 
 bool Checker::makeThreads(){
-	return makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3,0);
+    /*std::thread first(makeThread1(1, 0));
+    std::thread second(makeThread1(2, 0));
+    std::thread third(makeThread1(3, 0));
+
+    first.join();
+    second.join();
+    third.join();
+
+    return true;*/
+	return makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0);
 }
 
 bool Checker::makeThread1(int side, int cube){
+    //std::cout << "Cube: " << cube << " Side: " << side << std::endl;
+
     if(cube >= set.size()){ //finished threads
 		return true;
     }
@@ -27,7 +39,7 @@ bool Checker::makeThread1(int side, int cube){
         return false;
     }
 
-    used[side-1][cube] = true; //mark side as used
+    used[side - 1][cube] = true; //mark side as used
 
 	if (makeThread2(1, cube) || makeThread2(2, cube) || makeThread2(3, cube)) { // if can add 2nd thread
 		if (makeThread1(1, cube + 1) || makeThread1(2, cube + 1) || makeThread1(3, cube + 1)) // if can make rest of first thread
@@ -47,12 +59,6 @@ bool Checker::makeThread2(int side, int cube){
 	
 	if (check && !use) //if not used and count ok true
 		return true;
-
-	//if (use)
-		//std::cout << "Already used" << std::endl;
-
-	//else if (!check)
-		//std::cout << "Count2 too high" << std::endl;
 
 	undoThread2(side, cube);
 	return false;
