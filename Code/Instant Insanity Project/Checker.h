@@ -8,7 +8,7 @@ private:
     std::vector<int> count1; //count for first thread
     std::vector<int> count2; //count for second thread
     std::vector<Cube> set; //list of cubes
-	std::vector<std::vector<bool>> used; //bools of threads used
+	std::vector<std::vector<bool>> used; //bools of threads used for thread1
 
 public:
     Checker();
