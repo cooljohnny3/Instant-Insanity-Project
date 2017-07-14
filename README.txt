@@ -4,8 +4,6 @@ Instant Insanity Programming Project
 
 Use Generator.py to switch Threads.txt to either the pi or e input.
 
-This code doesn't work.  After running for ~88 mins it craches due to 
-somthing to do with pointers (ran out of room?).  The makeThreads funciton
-in the LibraryChecker uses pointers to save space and would run out of memory 
-if the pointers were not used.  This could all be avoided if I changed the 
-implimentation but i'm turning in what I have.
+This code doesn't work.  Tries to use mutual recursion? to create 2 paths 
+through the cubes.  Also tried to impliment multi-threading but need to
+rework some structure in order to work properly (seperate threads entirly).
