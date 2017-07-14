@@ -1,4 +1,0 @@
-once find obstacle only need to check the set that was returned
-
-
-NOTE: ran through all combos of 8

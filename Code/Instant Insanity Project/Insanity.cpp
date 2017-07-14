@@ -34,12 +34,12 @@ Insanity::Insanity(std::string name){
    std::sort(cubes.begin(), cubes.end()); // Sort cubes by average
    std::cout << "Done sorting" << std::endl;
 
-   //printCubes();
+  printCubes();
 }
 
 void Insanity::printCubes(){
    for(int c = 0; c < cubes.size(); c++){
-	   std::cout << c << " ";
+	   std::cout << c+1 << " ";
         for(int t = 1; t <= 3; t++)
             std::cout << cubes[c].getThread(t).getSide1() << "-" << cubes[c].getThread(t).getSide2() << " ";
         std::cout << std::endl;
@@ -56,22 +56,18 @@ std::vector<Cube> Insanity::obstacle(){
 	std::vector<Cube> prevList;
 
 	std::cout << "Checking inital set..." << std::endl;
-
-	if (checkSet(cubes)){ // if no obstacle with all then no obstacle at all
-		std::cout << "found path" << std::endl;
-		return listy;
-	}
 	
-	else{
-		std::cout << "no path" << std::endl;
+	if (checkSet(cubes)) // if no obstacle with all then no obstacle at all
 		return listy;
-	}
+
+	else
+		return cubes;
 
 	std::cout << "Initial set has obstacle.\nProceeding to rest..." << std::endl;
 
 	// loop generating and trying combinations
-    while(r > lo){
-		r = 32;//(hi - lo) / 2; 
+    while(true){
+		r = 31;//(hi - lo) / 2; 
 
 		std::cout << r << std::endl;
 
@@ -84,19 +80,20 @@ std::vector<Cube> Insanity::obstacle(){
 
             for (int i = 0; i < n; ++i) {
                 if (v[i]) {
-					/*std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
+					std::cout << cubes[i].getThread(1).getSide1() << "-" << cubes[i].getThread(1).getSide2() << " ";
 					std::cout << cubes[i].getThread(2).getSide1() << "-" << cubes[i].getThread(2).getSide2() << " ";
 					std::cout << cubes[i].getThread(3).getSide1() << "-" << cubes[i].getThread(3).getSide2() << " ";
-					std::cout << std::endl;*/
+					std::cout << std::endl;
                     listy.push_back(cubes[i]);
                 }
             }
 
-			//std::cout << std::endl;
+			std::cout << std::endl;
 
 			// use DFS for threads
-			if (!checkSet(listy)) {
+			if (listy.size() > 0 && !checkSet(listy)) {
 				std::cout << "obstacle" << std::endl;
+				return listy;
 				prevList = listy;
 				break;
 			}
@@ -104,52 +101,23 @@ std::vector<Cube> Insanity::obstacle(){
 			count++;
             listy.clear();
         } while (std::prev_permutation(v.begin(), v.end()));
-
+		/*
 		if (lo <= hi) { // found correct r
 			std::cout << "Found initial obstacle" << std::endl;
-			return finalPart(r);
+			return listy;
 		}
 
 		else if (prevList == listy) // last list had obstacle
 			lo = r + 1;
 
 		else // last list didn't have obstacle
-			hi = r - 1;
+			hi = r - 1;*/
     }
-}
-
-std::vector<Cube> Insanity::finalPart(int r) {
-	int n = SIZE;
-	std::vector<Cube> listy;
-
-	std::cout << n << "C" << r << std::endl;
-
-	// generates combos for n,r
-	std::vector<bool> v(n);
-	std::fill(v.begin(), v.begin() + r, true);
-
-	do {
-		for (int i = 0; i < n; ++i) {
-			if (v[i]) {
-				listy.push_back(cubes[i]);
-			}
-		}
-
-		//std::cout << std::endl;
-
-	// use DFS for threads
-		if (!checkSet(listy)) {
-			std::cout << "Obstacle found!" << std::endl;
-			return listy;
-		}
-
-		listy.clear();
-	} while (std::prev_permutation(v.begin(), v.end()));
 }
 
 /*
 Checks a vector containing cubes to see if they are an obstacle recursivly
-Returns true if not an obstacle
+Returns true if no obstacle
 */
 bool Insanity::checkSet(std::vector<Cube> set){
     Checker c = Checker(set);

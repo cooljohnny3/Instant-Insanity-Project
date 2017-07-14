@@ -14,6 +14,11 @@ Checker::Checker(std::vector<Cube> s){
 }
 
 bool Checker::makeThreads(){
+<<<<<<< HEAD
+=======
+	/*
+	// NOW WITH THRICE THE MUILTITHREADING!!!!1
+>>>>>>> 9a9b28ff187e9c6f5447145c696c8fe7b30ffc71
 	std::thread first(&Checker::makeThread, this, 1);
 	std::thread second(&Checker::makeThread, this, 2);
 	std::thread third(&Checker::makeThread, this, 3);
@@ -22,9 +27,22 @@ bool Checker::makeThreads(){
     second.join();
     third.join();
 
-    return path;
+    return path;*/
 
-	//return makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0);
+	if (makeThread1(1, 0))
+		return true;
+
+	//std::cout << "TRIED ALL OF 1ST SIDE PAIR" << std::endl;
+	//system("pause");
+
+	if (makeThread1(2, 0))
+		return true;
+
+	//std::cout << "TRIED ALL OF 2ND SIDE PAIR" << std::endl;
+	//system("pause");
+
+	if (makeThread1(3, 0))
+		return true;
 }
 
 void Checker::makeThread(int num) {
@@ -48,9 +66,8 @@ bool Checker::makeThread1(int side, int cube){
 
     used[side - 1][cube] = true; //mark side as used
 
-	if (makeThread2(1, cube) || makeThread2(2, cube) || makeThread2(3, cube)) { // if can add 2nd thread
-		if (makeThread1(1, cube + 1) || makeThread1(2, cube + 1) || makeThread1(3, cube + 1)) // if can make rest of first thread
-			return true;
+	if (makeThread2(1, cube) || makeThread2(2, cube) || makeThread2(3, cube)) { // if can add 2nd thread on same cube
+		return true;
 	}
 
 	used[side - 1][cube] = false; // mark side as unused
@@ -61,11 +78,22 @@ bool Checker::makeThread1(int side, int cube){
 bool Checker::makeThread2(int side, int cube){
 	//std::cout << "2 " << set[cube].getThread(side).getSide1() << "-" << set[cube].getThread(side).getSide2() << std::endl;
 
+	if (used[side - 1][cube]) {
+		//std::cout << "Used already" << std::endl;
+		return false;
+	}
+
 	bool check = checkThread2(side, cube);
-	bool use = used[side - 1][cube];
-	
-	if (check && !use) //if not used and count ok true
-		return true;
+
+	if (!check) {
+		//std::cout << "Count2 too high" << std::endl;
+		return false;
+	}
+
+	if (check && !used[side - 1][cube]) { //if not used and count ok true
+		if (makeThread1(1, cube + 1) || makeThread1(2, cube + 1) || makeThread1(3, cube + 1))
+			return true;
+	}
 
 	undoThread2(side, cube);
 	return false;
@@ -79,26 +107,29 @@ else count for the respecitve number is increased and return true
 bool Checker::checkThread1(int s, int c){
 	Thread side = set[c].getThread(s);
 
-    if(count1[side.getSide1()-1] + 1 > 2 || count1[side.getSide2()-1] + 1 > 2)
-        return false;
-    else{
-        count1[side.getSide1()-1]++;
-        count1[side.getSide2()-1]++;
-        return true;
-    }
+	count1[side.getSide1() - 1]++;
+	count1[side.getSide2() - 1]++;
+
+	if (count1[side.getSide1() - 1] > 2 || count1[side.getSide2() - 1] > 2) {
+		undoThread1(s, c);
+		return false;
+	}
+
+    return true;
 }
 
 bool Checker::checkThread2(int s, int c){
     Thread side = set[c].getThread(s);
 
-    if(count2[side.getSide1()-1] + 1 > 2 || count2[side.getSide2()-1] + 1 > 2)
-        return false;
+	count2[side.getSide1() - 1]++;
+	count2[side.getSide2() - 1]++;
 
-    else{
-        count2[side.getSide1()-1]++;
-        count2[side.getSide2()-1]++;
-        return true;
-    }
+	if (count2[side.getSide1() - 1] > 2 || count2[side.getSide2() - 1] > 2) {
+		undoThread2(s, c);
+		return false;
+	}
+
+	return true;
 }
 
 void Checker::undoThread1(int s, int c){
