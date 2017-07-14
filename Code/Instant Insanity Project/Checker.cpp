@@ -14,9 +14,9 @@ Checker::Checker(std::vector<Cube> s){
 }
 
 bool Checker::makeThreads(){
-	std::thread first(makeThread, 1);
-	std::thread second(makeThread, 2);
-	std::thread third(makeThread, 3);
+	std::thread first(&Checker::makeThread, this, 1);
+	std::thread second(&Checker::makeThread, this, 2);
+	std::thread third(&Checker::makeThread, this, 3);
 
     first.join();
     second.join();
@@ -28,7 +28,7 @@ bool Checker::makeThreads(){
 }
 
 void Checker::makeThread(int num) {
-	if (makeThread1(1, 0) || makeThread1(2, 0) || makeThread1(3, 0))
+	if (makeThread1(num, 0))
 		path = true;
 }
 
